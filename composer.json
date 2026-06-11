@@ -1,0 +1,47 @@
+{
+  "name": "meritum/serialization",
+  "description": "Pluggable object serialization for the Meritum ecosystem with item, collection, and pagination support",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Mike Georgeff",
+      "email": "mike@georgeff.co",
+      "role": "Author"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^8.4",
+    "georgeff/kernel": "^1.6"
+  },
+  "require-dev": {
+    "bnf/phpstan-psr-container": "^1.1",
+    "phpstan/phpstan": "^2.0",
+    "phpunit/phpunit": "^11.0",
+    "squizlabs/php_codesniffer": "^3.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "Meritum\\Serialization\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Meritum\\Serialization\\Test\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpunit"
+    ],
+    "analyze": [
+      "vendor/bin/phpstan"
+    ],
+    "phpcs": [
+      "vendor/bin/phpcs"
+    ]
+  }
+}
