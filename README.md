@@ -1,5 +1,9 @@
 # meritum/serialization
 
+[![CI](https://github.com/MeritumIO/serialization/actions/workflows/ci.yml/badge.svg)](https://github.com/MeritumIO/serialization/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/MeritumIO/serialization/badge.svg?branch=main)](https://coveralls.io/github/MeritumIO/serialization?branch=main)
+[![Packagist Version](https://img.shields.io/packagist/v/meritum/serialization)](https://packagist.org/packages/meritum/serialization)
+
 Pluggable object serialization with item, collection, and pagination support.
 
 ## Requirements
