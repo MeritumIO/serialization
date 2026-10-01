@@ -5,7 +5,7 @@ Pluggable object serialization with item, collection, and pagination support.
 ## Requirements
 
 - PHP 8.4+
-- `georgeff\kernel` ^1.6
+- `georgeff/kernel` ^2.0
 
 ## Installation
 
@@ -276,13 +276,13 @@ final class MyStrategy implements StrategyInterface
 
 ## Kernel integration
 
-`SerializationModule` registers `FormatterInterface` in the kernel container. It uses `DataArrayStrategy` by default. To swap in a custom strategy, register `StrategyInterface` before booting:
+`SerializationModule` registers `FormatterInterface` in the kernel container, along with a fallback `StrategyInterface` that resolves to `DataArrayStrategy`. To swap in a custom strategy, define `StrategyInterface` before booting, either in your bootstrap or from any module. Your definition replaces the fallback regardless of module order:
 
 ```php
 use Meritum\Serialization\SerializationModule;
 use Meritum\Serialization\Strategy\StrategyInterface;
 
-$kernel->define(StrategyInterface::class, fn () => new MyStrategy())->share();
+$kernel->define(StrategyInterface::class, fn () => new MyStrategy());
 $kernel->addModule(new SerializationModule());
 $kernel->boot();
 
@@ -296,8 +296,14 @@ use Meritum\Serialization\Formatter;
 use Meritum\Serialization\Strategy\ArrayStrategy;
 use Meritum\Serialization\Strategy\DataArrayStrategy;
 
-$kernel->define('formatter.default', fn () => new Formatter(new DataArrayStrategy()))->share();
-$kernel->define('formatter.bare',    fn () => new Formatter(new ArrayStrategy()))->share();
+$kernel->define('formatter.default', fn () => new Formatter(new DataArrayStrategy()));
+$kernel->define('formatter.bare',    fn () => new Formatter(new ArrayStrategy()));
+```
+
+To replace the module's `FormatterInterface` itself, use `$kernel->override()`. Calling `define()` with an id that's already defined throws a `DefinitionException`:
+
+```php
+$kernel->override(FormatterInterface::class, fn () => new MyFormatter());
 ```
 
 ## License
